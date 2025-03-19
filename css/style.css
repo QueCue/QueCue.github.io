@@ -1,0 +1,572 @@
+/* 基础样式 */
+:root {
+    --primary-color: #4CAF50;
+    --primary-dark: #2E7D32;
+    --primary-light: #A5D6A7;
+    --accent-color: #FD79A8;
+    --player-color: #4CAF50;
+    --ai-color: #2196F3;
+    --food-color: #FFC107;
+    --bg-color: #F8F9FA;
+    --card-bg: #FFFFFF;
+    --dark-text: #333333;
+    --light-text: #FFFFFF;
+    --easy-color: #4CAF50;
+    --medium-color: #FF9800;
+    --hard-color: #F44336;
+    --danger-color: #F44336;
+    --warning-color: #FFC107;
+    --dark-gray: #333333;
+    --light-gray: #EEEEEE;
+    --shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --button-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    --border-radius: 8px;
+    --button-radius: 24px;
+    --control-button-size: 60px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow: hidden;
+}
+
+body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: var(--bg-color);
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+    color: var(--dark-text);
+    padding: 0;
+    line-height: 1.4;
+    position: fixed;
+}
+
+/* 游戏容器 */
+.game-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    padding: 0;
+    background-color: transparent;
+    overflow: hidden;
+}
+
+/* 游戏画布 */
+.canvas-container {
+    width: 100%;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    -webkit-box-shadow: var(--shadow);
+    box-shadow: var(--shadow);
+    margin-bottom: 10px;
+}
+
+#gameCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    background-color: white;
+    background-image: 
+        -webkit-linear-gradient(rgba(200, 200, 200, 0.05) 1px, transparent 1px),
+        -webkit-linear-gradient(90deg, rgba(200, 200, 200, 0.05) 1px, transparent 1px);
+    background-image: 
+        linear-gradient(rgba(200, 200, 200, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200, 200, 200, 0.05) 1px, transparent 1px);
+}
+
+/* 游戏信息区域 */
+.game-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    -webkit-box-shadow: var(--shadow);
+    box-shadow: var(--shadow);
+}
+
+.score {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.status {
+    font-size: 14px;
+    color: var(--dark-text);
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.difficulty-display {
+    font-size: 14px;
+    padding: 6px 14px;
+    border-radius: 16px;
+    background-color: #F1F8E9;
+    margin-top: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* 难度选择器 */
+.difficulty-selector {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin: 10px 0;
+    width: 100%;
+    background-color: var(--card-bg);
+    padding: 12px 10px;
+    border-radius: var(--border-radius);
+    -webkit-box-shadow: var(--shadow);
+    box-shadow: var(--shadow);
+}
+
+.difficulty-selector span {
+    font-weight: 500;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.difficulty-option {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 8px 0;
+    margin: 0 4px;
+    border: none;
+    border-radius: var(--button-radius);
+    background-color: var(--light-gray);
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--dark-text);
+}
+
+.difficulty-option:hover {
+    background-color: #e0e0e0;
+}
+
+.difficulty-option.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* 游戏控制按钮 */
+.game-controls {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.mobile-controls {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.play-pause {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: var(--button-radius);
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-transition: background-color 0.2s;
+    transition: background-color 0.2s;
+    margin-bottom: 15px;
+    font-size: 16px;
+    -webkit-box-shadow: var(--button-shadow);
+    box-shadow: var(--button-shadow);
+}
+
+.play-pause:hover, .play-pause:active {
+    background-color: var(--primary-dark);
+}
+
+.control-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, var(--control-button-size));
+    grid-template-rows: repeat(3, var(--control-button-size));
+    gap: 2px;
+    margin: 10px auto 20px;
+}
+
+.control-button {
+    height: 100%;
+    width: 100%;
+    border: none;
+    background-color: #EEEEEE;
+    border-radius: 50%;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--primary-color);
+    -webkit-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+    -webkit-box-shadow: var(--shadow);
+    box-shadow: var(--shadow);
+    font-family: 'Arial Unicode MS', 'Arial', sans-serif;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.control-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+.control-button:active, .control-button.pressed {
+    background-color: #E0E0E0;
+    -webkit-transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+.control-button.active {
+    background-color: var(--primary-color);
+    color: white;
+    -webkit-box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.control-button.center {
+    visibility: hidden;
+}
+
+.up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.down {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+/* 游戏图例 */
+.game-legend {
+    display: none; /* 先隐藏图例，手机端不需要 */
+}
+
+/* 图例项样式 - 兼容处理 */
+.legend-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 0 8px;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.legend-player {
+    background-color: var(--player-color);
+}
+
+.legend-ai {
+    background-color: var(--ai-color);
+}
+
+.legend-food {
+    background-color: var(--food-color);
+}
+
+/* 手机设备优化 */
+@media screen and (max-width: 480px) {
+    .game-container {
+        padding: 0;
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+    
+    .game-info, .difficulty-selector {
+        border-radius: 0;
+        margin-bottom: 1px;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+    }
+    
+    .game-info {
+        padding: 4px 10px;
+    }
+    
+    .difficulty-selector {
+        padding: 4px 5px;
+    }
+    
+    .difficulty-selector span {
+        font-size: 12px;
+        margin-right: 3px;
+    }
+    
+    .difficulty-option {
+        font-size: 11px;
+        padding: 4px 0;
+        border-radius: 16px;
+        margin: 0 1px;
+    }
+    
+    .mobile-controls {
+        padding: 0 5px;
+        margin-top: auto;
+        margin-bottom: 2px;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+    }
+    
+    .play-pause {
+        font-size: 13px;
+        padding: 6px 0;
+        border-radius: 20px;
+        margin-bottom: 4px;
+    }
+    
+    /* 方向控制按钮 */
+    .control-buttons {
+        max-width: 135px;
+        margin: 0 auto 2px;
+        gap: 0;
+    }
+    
+    :root {
+        --control-button-size: 36px;
+    }
+    
+    .control-button {
+        font-size: 14px;
+    }
+    
+    .canvas-container {
+        border-radius: 0;
+        margin-bottom: 1px;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        -ms-flex-negative: 1;
+        flex-shrink: 1;
+        overflow: hidden;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        min-height: 0;
+    }
+    
+    #gameCanvas {
+        max-height: 100%;
+        -o-object-fit: contain;
+        object-fit: contain;
+    }
+    
+    .status {
+        font-size: 11px;
+        margin-bottom: 0;
+    }
+    
+    .score {
+        font-size: 16px;
+        margin-bottom: 1px;
+    }
+    
+    .difficulty-display {
+        font-size: 11px;
+        padding: 2px 8px;
+        margin-top: 1px;
+    }
+}
+
+/* 超小屏幕优化 */
+@media screen and (max-height: 600px) {
+    .game-info {
+        padding: 2px 8px;
+    }
+    
+    .difficulty-selector {
+        padding: 2px 4px;
+    }
+    
+    .mobile-controls {
+        margin-bottom: 1px;
+    }
+    
+    .control-buttons {
+        margin: 0 auto 1px;
+    }
+    
+    :root {
+        --control-button-size: 32px;
+    }
+}
+
+/* 极小屏幕和低端设备优化 */
+@media screen and (max-height: 570px), (max-width: 360px) {
+    :root {
+        --control-button-size: 30px;
+    }
+    
+    .control-buttons {
+        max-width: 110px;
+    }
+    
+    .play-pause {
+        padding: 3px 0;
+        font-size: 12px;
+        margin-bottom: 2px;
+    }
+    
+    .game-info, .difficulty-selector {
+        padding: 1px 5px;
+    }
+    
+    .difficulty-option {
+        padding: 3px 0;
+        font-size: 10px;
+    }
+    
+    .difficulty-selector span {
+        font-size: 10px;
+    }
+    
+    .score {
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+    
+    .status {
+        font-size: 10px;
+    }
+}
+
+/* 最小屏幕优化 - 极端情况 */
+@media screen and (max-height: 480px), (max-width: 320px) {
+    :root {
+        --control-button-size: 26px;
+    }
+    
+    .control-buttons {
+        max-width: 90px;
+    }
+    
+    .game-info, .difficulty-selector, .mobile-controls {
+        padding: 0 2px;
+    }
+    
+    .play-pause {
+        padding: 2px 0;
+        font-size: 11px;
+        margin-bottom: 1px;
+    }
+}
