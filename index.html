@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>AI Snake Battle</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="canvas-container">
+            <canvas id="gameCanvas"></canvas>
+        </div>
+        
+        <div class="game-info">
+            <div class="score">得分: <span id="score">0</span></div>
+            <div class="status" id="gameStatus">按空格键或点击开始按钮开始游戏</div>
+        </div>
+
+        <div class="game-controls">
+            <div class="difficulty-selector">
+                <span>难度: </span>
+                <button class="difficulty-option active" data-difficulty="0">简单</button>
+                <button class="difficulty-option" data-difficulty="1">中等</button>
+                <button class="difficulty-option" data-difficulty="2">困难</button>
+            </div>
+            
+            <div class="mobile-controls">
+                <button type="button" class="play-pause" id="playPauseButton">
+                    <i class="fas fa-play"></i> 开始游戏
+                </button>
+                <div class="control-buttons">
+                    <button type="button" class="control-button up" id="upButton">&#9650;</button>
+                    <button type="button" class="control-button left" id="leftButton">&#9668;</button>
+                    <button type="button" class="control-button center"></button>
+                    <button type="button" class="control-button right" id="rightButton">&#9658;</button>
+                    <button type="button" class="control-button down" id="downButton">&#9660;</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-legend">
+            <div class="legend-item">
+                <div class="legend-color legend-player"></div>
+                <span>玩家蛇</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color legend-ai"></div>
+                <span>AI蛇</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color legend-food"></div>
+                <span>食物</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/snake.js"></script>
+    <script src="js/playerSnake.js"></script>
+    <script src="js/aiSnake.js"></script>
+    <script src="js/food.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
