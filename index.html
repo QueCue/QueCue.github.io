@@ -1,69 +1,1813 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <title>AI Snake Battle</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>锅搅热浪：厨房疯云 - 更多页面</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hot-pink': '#FF4D8D',
+                        'neon-green': '#39FF14',
+                        'electric-blue': '#0892D0',
+                        'cyber-yellow': '#FFD300',
+                        'punk-purple': '#9B30FF'
+                    },
+                    fontFamily: {
+                        'punk': ['Impact', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+        .mockup-frame {
+            width: 360px;
+            height: 640px;
+            overflow: hidden;
+            position: relative;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .ingredient-item:active {
+            transform: scale(0.95);
+        }
+    </style>
 </head>
-<body>
-    <div class="game-container">
-        <div class="canvas-container">
-            <canvas id="gameCanvas"></canvas>
-        </div>
-        
-        <div class="game-info">
-            <div class="score">得分: <span id="score">0</span></div>
-            <div class="status" id="gameStatus">按空格键或点击开始按钮开始游戏</div>
-        </div>
-
-        <div class="game-controls">
-            <div class="difficulty-selector">
-                <span>难度: </span>
-                <button class="difficulty-option active" data-difficulty="0">简单</button>
-                <button class="difficulty-option" data-difficulty="1">中等</button>
-                <button class="difficulty-option" data-difficulty="2">困难</button>
+<body class="bg-gray-900 p-6 flex flex-wrap gap-6">
+    <!-- 游戏内主界面 -->
+    <div class="mockup-frame bg-black rounded-xl border-4 border-neon-green shadow-lg shadow-neon-green/30">
+        <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black flex flex-col relative overflow-hidden">
+            <!-- 顶部信息栏 -->
+            <div class="flex justify-between items-center p-3 bg-black/70 border-b border-neon-green/30 relative z-20">
+                <!-- 时间和分数 -->
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center bg-black/70 rounded-full px-3 py-1 border border-neon-green/50">
+                        <span class="text-neon-green mr-1">⏱️</span>
+                        <span class="text-white font-bold">2:45</span>
+                    </div>
+                    <div class="flex items-center bg-black/70 rounded-full px-3 py-1 border border-hot-pink/50">
+                        <span class="text-hot-pink mr-1">🔥</span>
+                        <span class="text-white font-bold">1280</span>
+                    </div>
+                </div>
+                
+                <!-- 暂停按钮 -->
+                <button class="w-8 h-8 rounded-full bg-black/70 border border-white/30 flex items-center justify-center">
+                    <span class="text-white">⏸️</span>
+                </button>
             </div>
             
-            <div class="mobile-controls">
-                <button type="button" class="play-pause" id="playPauseButton">
-                    <i class="fas fa-play"></i> 开始游戏
-                </button>
-                <div class="control-buttons">
-                    <button type="button" class="control-button up" id="upButton">&#9650;</button>
-                    <button type="button" class="control-button left" id="leftButton">&#9668;</button>
-                    <button type="button" class="control-button center"></button>
-                    <button type="button" class="control-button right" id="rightButton">&#9658;</button>
-                    <button type="button" class="control-button down" id="downButton">&#9660;</button>
+            <!-- 游戏区域 -->
+            <div class="flex-1 flex flex-col relative">
+                <!-- 订单区域 -->
+                <div class="p-3 flex gap-2 overflow-x-auto hide-scrollbar">
+                    <!-- 订单1 -->
+                    <div class="flex-shrink-0 w-32 h-16 bg-black/60 rounded-lg border border-cyber-yellow/50 p-2 flex flex-col">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white text-xs">摇滚汉堡</span>
+                            <div class="bg-cyber-yellow/80 text-black text-xs rounded-full px-2">
+                                1:20
+                            </div>
+                        </div>
+                        <div class="flex mt-1 gap-1">
+                            <div class="w-5 h-5 rounded-full bg-hot-pink/30 border border-hot-pink flex items-center justify-center text-[10px]">🍅</div>
+                            <div class="w-5 h-5 rounded-full bg-neon-green/30 border border-neon-green flex items-center justify-center text-[10px]">🥬</div>
+                            <div class="w-5 h-5 rounded-full bg-cyber-yellow/30 border border-cyber-yellow flex items-center justify-center text-[10px]">🧀</div>
+                            <div class="w-5 h-5 rounded-full bg-electric-blue/30 border border-electric-blue flex items-center justify-center text-[10px]">🥩</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 订单2 -->
+                    <div class="flex-shrink-0 w-32 h-16 bg-black/60 rounded-lg border border-hot-pink/50 p-2 flex flex-col">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white text-xs">朋克薯条</span>
+                            <div class="bg-hot-pink/80 text-white text-xs rounded-full px-2">
+                                0:45
+                            </div>
+                        </div>
+                        <div class="flex mt-1 gap-1">
+                            <div class="w-5 h-5 rounded-full bg-cyber-yellow/30 border border-cyber-yellow flex items-center justify-center text-[10px]">🍟</div>
+                            <div class="w-5 h-5 rounded-full bg-hot-pink/30 border border-hot-pink flex items-center justify-center text-[10px]">🧂</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 订单3 -->
+                    <div class="flex-shrink-0 w-32 h-16 bg-black/60 rounded-lg border border-electric-blue/50 p-2 flex flex-col opacity-70">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white text-xs">电音沙拉</span>
+                            <div class="bg-electric-blue/80 text-white text-xs rounded-full px-2">
+                                2:30
+                            </div>
+                        </div>
+                        <div class="flex mt-1 gap-1">
+                            <div class="w-5 h-5 rounded-full bg-neon-green/30 border border-neon-green flex items-center justify-center text-[10px]">🥬</div>
+                            <div class="w-5 h-5 rounded-full bg-hot-pink/30 border border-hot-pink flex items-center justify-center text-[10px]">🍅</div>
+                            <div class="w-5 h-5 rounded-full bg-cyber-yellow/30 border border-cyber-yellow flex items-center justify-center text-[10px]">🥕</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 烹饪区域 -->
+                <div class="flex-1 relative">
+                    <!-- 烹饪台 -->
+                    <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                    
+                    <!-- 锅 -->
+                    <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 w-48 h-24 bg-gray-800 rounded-full border-4 border-gray-700 flex items-center justify-center">
+                        <!-- 锅内食材 -->
+                        <div class="w-40 h-16 bg-gray-700 rounded-full flex items-center justify-center gap-1">
+                            <div class="w-8 h-8 rounded-full bg-hot-pink flex items-center justify-center">🍅</div>
+                            <div class="w-8 h-8 rounded-full bg-neon-green flex items-center justify-center">🥬</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 飘动的音符和特效 -->
+                    <div class="absolute top-10 left-20 text-xl float opacity-70">🎵</div>
+                    <div class="absolute top-20 right-24 text-xl float opacity-70" style="animation-delay: 0.5s">🎶</div>
+                    <div class="absolute top-40 left-40 text-xl float opacity-70" style="animation-delay: 1s">🎸</div>
+                    
+                    <!-- 烹饪进度条 -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-56 h-4 bg-black/50 rounded-full overflow-hidden border border-white/20">
+                        <div class="h-full bg-gradient-to-r from-neon-green to-cyber-yellow" style="width: 65%"></div>
+                    </div>
+                </div>
+                
+                <!-- 食材选择区域 -->
+                <div class="h-24 bg-black/80 border-t border-gray-700 p-2 flex items-center gap-2 overflow-x-auto hide-scrollbar">
+                    <div class="ingredient-item flex-shrink-0 w-16 h-16 bg-hot-pink/20 rounded-lg border border-hot-pink/50 flex flex-col items-center justify-center transition-transform">
+                        <span class="text-2xl">🍅</span>
+                        <span class="text-white text-[10px] mt-1">番茄</span>
+                    </div>
+                    <div class="ingredient-item flex-shrink-0 w-16 h-16 bg-neon-green/20 rounded-lg border border-neon-green/50 flex flex-col items-center justify-center transition-transform">
+                        <span class="text-2xl">🥬</span>
+                        <span class="text-white text-[10px] mt-1">生菜</span>
+                    </div>
+                    <div class="ingredient-item flex-shrink-0 w-16 h-16 bg-cyber-yellow/20 rounded-lg border border-cyber-yellow/50 flex flex-col items-center justify-center transition-transform">
+                        <span class="text-2xl">🧀</span>
+                        <span class="text-white text-[10px] mt-1">奶酪</span>
+                    </div>
+                    <div class="ingredient-item flex-shrink-0 w-16 h-16 bg-electric-blue/20 rounded-lg border border-electric-blue/50 flex flex-col items-center justify-center transition-transform">
+                        <span class="text-2xl">🥩</span>
+                        <span class="text-white text-[10px] mt-1">牛肉</span>
+                    </div>
+                    <div class="ingredient-item flex-shrink-0 w-16 h-16 bg-punk-purple/20 rounded-lg border border-punk-purple/50 flex flex-col items-center justify-center transition-transform">
+                        <span class="text-2xl">🍟</span>
+                        <span class="text-white text-[10px] mt-1">薯条</span>
+                    </div>
+                    <div class="ingredient-item flex-shrink-0 w-16 h-16 bg-gray-700/50 rounded-lg border border-gray-500/50 flex flex-col items-center justify-center transition-transform">
+                        <span class="text-2xl">🧂</span>
+                        <span class="text-white text-[10px] mt-1">调料</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="game-legend">
-            <div class="legend-item">
-                <div class="legend-color legend-player"></div>
-                <span>玩家蛇</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color legend-ai"></div>
-                <span>AI蛇</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color legend-food"></div>
-                <span>食物</span>
+            
+            <!-- 操作按钮 -->
+            <div class="absolute bottom-28 right-4 flex flex-col gap-2 z-20">
+                <button class="w-14 h-14 rounded-full bg-hot-pink flex items-center justify-center shadow-lg shadow-hot-pink/30 border-2 border-white">
+                    <span class="text-white text-2xl">🔥</span>
+                </button>
+                <button class="w-14 h-14 rounded-full bg-electric-blue flex items-center justify-center shadow-lg shadow-electric-blue/30 border-2 border-white">
+                    <span class="text-white text-2xl">❄️</span>
+                </button>
             </div>
         </div>
     </div>
 
-    <script src="js/utils.js"></script>
-    <script src="js/snake.js"></script>
-    <script src="js/playerSnake.js"></script>
-    <script src="js/aiSnake.js"></script>
-    <script src="js/food.js"></script>
-    <script src="js/game.js"></script>
-</body>
-</html>
+    <!-- 角色装扮页面 -->
+    <div class="mockup-frame bg-black rounded-xl border-4 border-hot-pink shadow-lg shadow-hot-pink/30">
+        <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black flex flex-col relative overflow-hidden">
+            <!-- 背景装饰 -->
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-0 right-0 w-40 h-40 bg-hot-pink rounded-full filter blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-40 h-40 bg-punk-purple rounded-full filter blur-3xl"></div>
+            </div>
+            
+            <!-- 顶部导航栏 -->
+            <div class="flex items-center justify-between p-4 relative z-10">
+                <div class="flex items-center">
+                    <button class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center">
+                        <span class="text-white">←</span>
+                    </button>
+                    <h2 class="text-white font-punk text-xl ml-4">厨师装扮</h2>
+                </div>
+                <div class="flex items-center bg-black/50 rounded-full px-3 py-1">
+                    <span class="text-neon-green mr-1">💎</span>
+                    <span class="text-white">68</span>
+                </div>
+            </div>
+            
+            <!-- 角色预览 -->
+            <!-- 角色预览 -->
+            <div class="flex-1 flex flex-col items-center justify-center relative z-10">
+                <!-- 角色展示区 -->
+                <div class="w-48 h-48 rounded-full bg-black/40 border-2 border-hot-pink/50 flex items-center justify-center mb-4 relative">
+                    <!-- 角色形象 -->
+                    <div class="relative">
+                        <div class="w-32 h-32 bg-gray-800 rounded-full overflow-hidden border-2 border-white/30 flex items-center justify-center">
+                            <span class="text-5xl">👨‍🍳</span>
+                        </div>
+                        <!-- 装备的物品 -->
+                        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                            <div class="absolute top-0 w-20 h-10">
+                                <span class="text-3xl">🎩</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 特效 -->
+                    <div class="absolute inset-0 rounded-full border-2 border-hot-pink animate-pulse-fast opacity-50"></div>
+                </div>
+                
+                <!-- 角色名称 -->
+                <div class="text-center mb-6">
+                    <h3 class="text-white font-punk text-xl">摇滚厨神</h3>
+                    <p class="text-gray-400 text-sm">等级 8</p>
+                </div>
+            </div>
+            
+            <!-- 装扮选择区 -->
+            <div class="h-60 bg-black/70 rounded-t-3xl border-t border-hot-pink/30 p-4">
+                <!-- 分类选项卡 -->
+                <div class="flex justify-around mb-4">
+                    <button class="px-4 py-1 rounded-full bg-hot-pink text-white font-bold text-sm">帽子</button>
+                    <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">服装</button>
+                    <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">装饰</button>
+                    <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">特效</button>
+                </div>
+                
+                <!-- 装扮列表 -->
+                <div class="grid grid-cols-3 gap-3 overflow-y-auto h-40 pb-2">
+                    <!-- 已拥有的装扮 -->
+                    <div class="bg-black/50 rounded-lg border border-hot-pink flex flex-col items-center justify-center p-2 relative">
+                        <span class="text-3xl">🎩</span>
+                        <span class="text-white text-xs mt-1">主厨帽</span>
+                        <div class="absolute top-1 right-1 w-4 h-4 bg-neon-green rounded-full flex items-center justify-center">
+                            <span class="text-black text-[8px]">✓</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-black/50 rounded-lg border border-white/20 flex flex-col items-center justify-center p-2">
+                        <span class="text-3xl">🧢</span>
+                        <span class="text-white text-xs mt-1">棒球帽</span>
+                    </div>
+                    
+                    <div class="bg-black/50 rounded-lg border border-white/20 flex flex-col items-center justify-center p-2">
+                        <span class="text-3xl">👑</span>
+                        <span class="text-white text-xs mt-1">皇冠</span>
+                    </div>
+                    
+                    <!-- 需要解锁的装扮 -->
+                    <div class="bg-black/50 rounded-lg border border-gray-700 flex flex-col items-center justify-center p-2 relative">
+                        <div class="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center">
+                            <div class="flex flex-col items-center">
+                                <span class="text-cyber-yellow">💎 25</span>
+                                <span class="text-gray-400 text-[10px]">解锁</span>
+                            </div>
+                        </div>
+                        <span class="text-3xl opacity-50">🎭</span>
+                        <span class="text-gray-500 text-xs mt-1">面具</span>
+                    </div>
+                    
+                    <div class="bg-black/50 rounded-lg border border-gray-700 flex flex-col items-center justify-center p-2 relative">
+                        <div class="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center">
+                            <div class="flex flex-col items-center">
+                                <span class="text-cyber-yellow">💎 40</span>
+                                <span class="text-gray-400 text-[10px]">解锁</span>
+                            </div>
+                        </div>
+                        <span class="text-3xl opacity-50">🎧</span>
+                        <span class="text-gray-500 text-xs mt-1">耳机</span>
+                    </div>
+                    
+                    <div class="bg-black/50 rounded-lg border border-gray-700 flex flex-col items-center justify-center p-2 relative">
+                        <div class="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center">
+                            <div class="flex items-center">
+                                <span class="text-white text-[10px] mr-1">Lv.10</span>
+                                <span class="text-gray-400 text-[10px]">解锁</span>
+                            </div>
+                        </div>
+                        <span class="text-3xl opacity-50">🕶️</span>
+                        <span class="text-gray-500 text-xs mt-1">墨镜</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成就/排行榜页面 -->
+    <div class="mockup-frame bg-black rounded-xl border-4 border-cyber-yellow shadow-lg shadow-cyber-yellow/30">
+        <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black flex flex-col relative overflow-hidden">
+            <!-- 背景装饰 -->
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-0 left-0 w-40 h-40 bg-cyber-yellow rounded-full filter blur-3xl"></div>
+                <div class="absolute bottom-0 right-0 w-40 h-40 bg-electric-blue rounded-full filter blur-3xl"></div>
+            </div>
+            
+            <!-- 顶部导航栏 -->
+            <div class="flex items-center justify-between p-4 relative z-10">
+                <div class="flex items-center">
+                    <button class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center">
+                        <span class="text-white">←</span>
+                    </button>
+                    <h2 class="text-white font-punk text-xl ml-4">排行榜</h2>
+                </div>
+                <div>
+                    <button class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center">
+                        <span class="text-white">🔄</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 分类选项卡 -->
+            <div class="flex justify-around px-4 py-2 relative z-10">
+                <button class="px-4 py-1 rounded-full bg-cyber-yellow text-black font-bold text-sm">好友榜</button>
+                <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">全球榜</button>
+                <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">成就</button>
+            </div>
+            
+            <!-- 我的排名 -->
+            <div class="mx-4 my-3 bg-black/60 rounded-xl p-3 border border-cyber-yellow/30 relative z-10">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-cyber-yellow flex items-center justify-center text-black font-bold">
+                        8
+                    </div>
+                    <div class="flex-1 flex items-center ml-3">
+                        <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-white/30">
+                            <span class="text-xl">👨‍🍳</span>
+                        </div>
+                        <div class="ml-2">
+                            <div class="text-white font-bold">摇滚厨神</div>
+                            <div class="text-gray-400 text-xs">等级 8</div>
+                        </div>
+                    </div>
+                    <div class="text-cyber-yellow font-punk text-xl">
+                        1280
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 排行榜列表 -->
+            <div class="flex-1 overflow-y-auto px-4 relative z-10">
+                <!-- 第一名 -->
+                <div class="mb-3 bg-gradient-to-r from-cyber-yellow/20 to-transparent rounded-xl p-3 border border-cyber-yellow/50 relative">
+                    <div class="absolute -left-1 -top-1 w-8 h-8 bg-cyber-yellow rounded-full flex items-center justify-center text-black font-bold text-sm shadow-lg shadow-cyber-yellow/30">
+                        1
+                    </div>
+                    <div class="flex items-center">
+                        <div class="flex-1 flex items-center ml-8">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border-2 border-cyber-yellow">
+                                <span class="text-xl">👩‍🍳</span>
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-white font-bold">厨房女王</div>
+                                <div class="text-gray-400 text-xs">等级 15</div>
+                            </div>
+                        </div>
+                        <div class="text-cyber-yellow font-punk text-xl">
+                            5280
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 第二名 -->
+                <div class="mb-3 bg-gradient-to-r from-gray-400/20 to-transparent rounded-xl p-3 border border-gray-400/50">
+                    <div class="absolute -left-1 -top-1 w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-black font-bold text-sm">
+                        2
+                    </div>
+                    <div class="flex items-center">
+                        <div class="flex-1 flex items-center ml-8">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border-2 border-gray-400">
+                                <span class="text-xl">🧑‍🍳</span>
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-white font-bold">美食达人</div>
+                                <div class="text-gray-400 text-xs">等级 12</div>
+                            </div>
+                        </div>
+                        <div class="text-white font-punk text-xl">
+                            4120
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 第三名 -->
+                <div class="mb-3 bg-gradient-to-r from-amber-700/20 to-transparent rounded-xl p-3 border border-amber-700/50">
+                    <div class="absolute -left-1 -top-1 w-8 h-8 bg-amber-700 rounded-full flex items-center justify-center text-black font-bold text-sm">
+                        3
+                    </div>
+                    <div class="flex items-center">
+                        <div class="flex-1 flex items-center ml-8">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border-2 border-amber-700">
+                                <span class="text-xl">👨‍🍳</span>
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-white font-bold">料理大师</div>
+                                <div class="text-gray-400 text-xs">等级 11</div>
+                            </div>
+                        </div>
+                        <div class="text-amber-500 font-punk text-xl">
+                            3890
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 其他排名 -->
+                <div class="mb-3 bg-black/40 rounded-xl p-3 border border-white/10">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-sm">
+                            4
+                        </div>
+                        <div class="flex-1 flex items-center ml-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-white/30">
+                                <span class="text-xl">👩‍🍳</span>
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-white font-bold">烹饪新秀</div>
+                                <div class="text-gray-400 text-xs">等级 10</div>
+                            </div>
+                        </div>
+                        <div class="text-white font-punk text-xl">
+                            3240
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3 bg-black/40 rounded-xl p-3 border border-white/10">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-sm">
+                            5
+                        </div>
+                        <div class="flex-1 flex items-center ml-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-white/30">
+                                <span class="text-xl">🧑‍🍳</span>
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-white font-bold">厨艺高手</div>
+                                <div class="text-gray-400 text-xs">等级 9</div>
+                            </div>
+                        </div>
+                        <div class="text-white font-punk text-xl">
+                            2750
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3 bg-black/40 rounded-xl p-3 border border-white/10">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-sm">
+                            6
+                        </div>
+                        <div class="flex-1 flex items-center ml-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-white/30">
+                                <span class="text-xl">👨‍🍳</span>
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-white font-bold">锅铲王者</div>
+                                <div class="text-gray-400 text-xs">等级 9</div>
+                            </div>
+                        </div>
+                        <div class="text-white font-punk text-xl">
+                            2340
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3 bg-black/40 rounded-xl p-3 border border-white/10">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-sm">
+                            7
+                        </div>
+                        <div class="flex-1 flex items-center ml-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-white/30">
+                                <span class="text-xl">👩‍🍳</span>
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-white font-bold">美食家</div>
+                                <div class="text-gray-400 text-xs">等级 8</div>
+                            </div>
+                        </div>
+                        <div class="text-white font-punk text-xl">
+                            1950
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 底部导航栏 -->
+            <div class="bg-black/80 border-t border-white/10 p-3 flex justify-around items-center relative z-10">
+                <button class="flex flex-col items-center">
+                    <span class="text-gray-400 text-lg">🏠</span>
+                    <span class="text-gray-400 text-xs">首页</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <span class="text-gray-400 text-lg">👨‍🍳</span>
+                    <span class="text-gray-400 text-xs">角色</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <span class="text-cyber-yellow text-lg">🏆</span>
+                    <span class="text-cyber-yellow text-xs">排行</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <span class="text-gray-400 text-lg">⚙️</span>
+                    <span class="text-gray-400 text-xs">设置</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成就页面 -->
+    <div class="mockup-frame bg-black rounded-xl border-4 border-hot-pink shadow-lg shadow-hot-pink/30">
+        <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black flex flex-col relative overflow-hidden">
+            <!-- 背景装饰 -->
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-0 right-0 w-40 h-40 bg-hot-pink rounded-full filter blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-40 h-40 bg-neon-green rounded-full filter blur-3xl"></div>
+            </div>
+            
+            <!-- 顶部导航栏 -->
+            <div class="flex items-center justify-between p-4 relative z-10">
+                <div class="flex items-center">
+                    <button class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center">
+                        <span class="text-white">←</span>
+                    </button>
+                    <h2 class="text-white font-punk text-xl ml-4">成就</h2>
+                </div>
+                <div class="flex items-center bg-black/50 px-3 py-1 rounded-full border border-hot-pink/30">
+                    <span class="text-hot-pink text-sm mr-1">🏆</span>
+                    <span class="text-white font-bold">28/50</span>
+                </div>
+            </div>
+            
+            <!-- 分类选项卡 -->
+            <div class="flex justify-around px-4 py-2 relative z-10">
+                <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">好友榜</button>
+                <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">全球榜</button>
+                <button class="px-4 py-1 rounded-full bg-hot-pink text-white font-bold text-sm">成就</button>
+            </div>
+            
+            <!-- 成就进度概览 -->
+            <div class="mx-4 my-3 bg-black/60 rounded-xl p-3 border border-hot-pink/30 relative z-10">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="text-white font-bold">成就完成度</div>
+                    <div class="text-hot-pink font-punk">56%</div>
+                </div>
+                <div class="w-full h-3 bg-gray-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-hot-pink to-neon-green rounded-full" style="width: 56%"></div>
+                </div>
+            </div>
+            
+            <!-- 成就列表 -->
+            <div class="flex-1 overflow-y-auto px-4 relative z-10">
+                <!-- 已完成成就 -->
+                <div class="mb-3 bg-gradient-to-r from-hot-pink/20 to-transparent rounded-xl p-3 border border-hot-pink/50">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-black/50 flex items-center justify-center text-2xl border-2 border-hot-pink">
+                            🔥
+                        </div>
+                        <div class="flex-1 ml-3">
+                            <div class="flex justify-between">
+                                <div class="text-white font-bold">烹饪大师</div>
+                                <div class="text-hot-pink">+500分</div>
+                            </div>
+                            <div class="text-gray-400 text-xs mt-1">完成100道菜肴的烹饪</div>
+                            <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden mt-2">
+                                <div class="h-full bg-hot-pink rounded-full" style="width: 100%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-1">
+                                <span class="text-gray-400">进度</span>
+                                <span class="text-hot-pink">100/100</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3 bg-gradient-to-r from-hot-pink/20 to-transparent rounded-xl p-3 border border-hot-pink/50">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-black/50 flex items-center justify-center text-2xl border-2 border-hot-pink">
+                            ⭐
+                        </div>
+                        <div class="flex-1 ml-3">
+                            <div class="flex justify-between">
+                                <div class="text-white font-bold">完美主义者</div>
+                                <div class="text-hot-pink">+300分</div>
+                            </div>
+                            <div class="text-gray-400 text-xs mt-1">获得50次完美评价</div>
+                            <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden mt-2">
+                                <div class="h-full bg-hot-pink rounded-full" style="width: 100%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-1">
+                                <span class="text-gray-400">进度</span>
+                                <span class="text-hot-pink">50/50</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 进行中成就 -->
+                <div class="mb-3 bg-black/40 rounded-xl p-3 border border-white/10">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-black/50 flex items-center justify-center text-2xl border border-gray-700">
+                            🍳
+                        </div>
+                        <div class="flex-1 ml-3">
+                            <div class="flex justify-between">
+                                <div class="text-white font-bold">速度与激情</div>
+                                <div class="text-gray-400">+200分</div>
+                            </div>
+                            <div class="text-gray-400 text-xs mt-1">在30秒内完成一道菜肴20次</div>
+                            <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden mt-2">
+                                <div class="h-full bg-neon-green rounded-full" style="width: 75%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-1">
+                                <span class="text-gray-400">进度</span>
+                                <span class="text-neon-green">15/20</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3 bg-black/40 rounded-xl p-3 border border-white/10">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-black/50 flex items-center justify-center text-2xl border border-gray-700">
+                            🏆
+                        </div>
+                        <div class="flex-1 ml-3">
+                            <div class="flex justify-between">
+                                <div class="text-white font-bold">排行榜霸主</div>
+                                <div class="text-gray-400">+1000分</div>
+                            </div>
+                            <div class="text-gray-400 text-xs mt-1">在好友排行榜中保持第一名7天</div>
+                            <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden mt-2">
+                                <div class="h-full bg-cyber-yellow rounded-full" style="width: 42%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-1">
+                                <span class="text-gray-400">进度</span>
+                                <span class="text-cyber-yellow">3/7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 未解锁成就 -->
+                <div class="mb-3 bg-black/40 rounded-xl p-3 border border-white/10">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-black/50 flex items-center justify-center text-2xl border border-gray-700 opacity-50">
+                            ❓
+                        </div>
+                        <div class="flex-1 ml-3">
+                            <div class="flex justify-between">
+                                <div class="text-white font-bold">神秘成就</div>
+                                <div class="text-gray-400">+???分</div>
+                            </div>
+                            <div class="text-gray-400 text-xs mt-1">继续游戏以解锁此成就</div>
+                            <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden mt-2">
+                                <div class="h-full bg-gray-600 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-1">
+                                <span class="text-gray-400">进度</span>
+                                <span class="text-gray-400">0/???</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3 bg-black/40 rounded-xl p-3 border border-white/10">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-black/50 flex items-center justify-center text-2xl border border-gray-700 opacity-50">
+                            🔒
+                        </div>
+                        <div class="flex-1 ml-3">
+                            <div class="flex justify-between">
+                                <div class="text-white font-bold">隐藏成就</div>
+                                <div class="text-gray-400">+???分</div>
+                            </div>
+                            <div class="text-gray-400 text-xs mt-1">达到10级以解锁此成就</div>
+                            <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden mt-2">
+                                <div class="h-full bg-gray-600 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-1">
+                                <span class="text-gray-400">进度</span>
+                                <span class="text-gray-400">0/???</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 底部导航栏 -->
+            <div class="bg-black/80 border-t border-white/10 p-3 flex justify-around items-center relative z-10">
+                <button class="flex flex-col items-center">
+                    <span class="text-gray-400 text-lg">🏠</span>
+                    <span class="text-gray-400 text-xs">首页</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <span class="text-gray-400 text-lg">👨‍🍳</span>
+                    <span class="text-gray-400 text-xs">角色</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <span class="text-cyber-yellow text-lg">🏆</span>
+                    <span class="text-cyber-yellow text-xs">成就</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <span class="text-gray-400 text-lg">⚙️</span>
+                    <span class="text-gray-400 text-xs">设置</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 角色装扮页面 -->
+    <div class="mockup-frame bg-black rounded-xl border-4 border-neon-green shadow-lg shadow-neon-green/30">
+        <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black flex flex-col relative overflow-hidden">
+            <!-- 背景装饰 -->
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-0 left-0 w-40 h-40 bg-cyber-blue rounded-full filter blur-3xl"></div>
+                <div class="absolute bottom-0 right-0 w-40 h-40 bg-neon-green rounded-full filter blur-3xl"></div>
+            </div>
+            
+            <!-- 顶部导航栏 -->
+            <div class="flex items-center justify-between p-4 relative z-10">
+                <div class="flex items-center">
+                    <button class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center">
+                        <span class="text-white">←</span>
+                    </button>
+                    <h2 class="text-white font-punk text-xl ml-4">角色装扮</h2>
+                </div>
+                <div class="flex items-center">
+                    <div class="bg-black/50 px-3 py-1 rounded-full border border-neon-green/30 flex items-center">
+                        <span class="text-neon-green text-sm mr-1">💎</span>
+                        <span class="text-white font-bold">1,250</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 角色预览区域 -->
+            <div class="mx-4 bg-black/60 rounded-2xl p-4 border border-neon-green/30 relative z-10 flex flex-col items-center">
+                <div class="w-32 h-32 rounded-full bg-gradient-to-br from-neon-green/20 to-cyber-blue/20 flex items-center justify-center mb-3">
+                    <div class="w-28 h-28 rounded-full bg-black/70 flex items-center justify-center overflow-hidden border-2 border-neon-green/50">
+                        <span class="text-5xl">👨‍🍳</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-bold text-lg">厨神小王</h3>
+                <div class="flex items-center mt-1">
+                    <div class="bg-neon-green/20 px-2 py-0.5 rounded text-xs text-neon-green font-bold">
+                        Lv.9
+                    </div>
+                    <div class="mx-2 text-gray-500">|</div>
+                    <div class="text-gray-300 text-xs">
+                        <span class="text-cyber-yellow">★</span> 装扮值: 85
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 装扮分类选项卡 -->
+            <div class="flex justify-around px-4 py-3 relative z-10">
+                <button class="px-4 py-1 rounded-full bg-neon-green text-black font-bold text-sm">头像</button>
+                <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">服装</button>
+                <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">厨具</button>
+                <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">特效</button>
+            </div>
+            
+            <!-- 装扮列表 -->
+            <div class="flex-1 overflow-y-auto px-4 relative z-10">
+                <div class="grid grid-cols-3 gap-3">
+                    <!-- 当前使用的装扮 -->
+                    <div class="bg-gradient-to-br from-neon-green/30 to-transparent rounded-xl p-2 flex flex-col items-center border-2 border-neon-green">
+                        <div class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center mb-2">
+                            <span class="text-2xl">👨‍🍳</span>
+                        </div>
+                        <div class="text-white text-xs font-bold">厨神</div>
+                        <div class="text-neon-green text-xs mt-1">已装备</div>
+                    </div>
+                    
+                    <!-- 已拥有的装扮 -->
+                    <div class="bg-black/40 rounded-xl p-2 flex flex-col items-center border border-white/10">
+                        <div class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center mb-2">
+                            <span class="text-2xl">👩‍🍳</span>
+                        </div>
+                        <div class="text-white text-xs font-bold">大厨</div>
+                        <button class="bg-neon-green/20 text-neon-green text-xs px-2 py-0.5 rounded-full mt-1">
+                            使用
+                        </button>
+                    </div>
+                    
+                    <div class="bg-black/40 rounded-xl p-2 flex flex-col items-center border border-white/10">
+                        <div class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center mb-2">
+                            <span class="text-2xl">🧑‍🍳</span>
+                        </div>
+                        <div class="text-white text-xs font-bold">料理师</div>
+                        <button class="bg-neon-green/20 text-neon-green text-xs px-2 py-0.5 rounded-full mt-1">
+                            使用
+                        </button>
+                    </div>
+                    
+                    <!-- 未拥有的装扮 -->
+                    <div class="bg-black/40 rounded-xl p-2 flex flex-col items-center border border-white/10 opacity-80">
+                        <div class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center mb-2 relative">
+                            <span class="text-2xl">🧙‍♂️</span>
+                            <div class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center">
+                                <span class="text-white text-xl">🔒</span>
+                            </div>
+                        </div>
+                        <div class="text-white text-xs font-bold">魔法厨师</div>
+                        <button class="bg-cyber-yellow/20 text-cyber-yellow text-xs px-2 py-0.5 rounded-full mt-1 flex items-center">
+                            <span class="mr-0.5">💎</span> 300
+                        </button>
+                    </div>
+                    
+                    <div class="bg-black/40 rounded-xl p-2 flex flex-col items-center border border-white/10 opacity-80">
+                        <div class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center mb-2 relative">
+                            <span class="text-2xl">👽</span>
+                            <div class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center">
+                                <span class="text-white text-xl">🔒</span>
+                            </div>
+                        </div>
+                        <div class="text-white text-xs font-bold">外星厨神</div>
+                        <button class="bg-cyber-yellow/20 text-cyber-yellow text-xs px-2 py-0.5 rounded-full mt-1 flex items-center">
+                            <span class="mr-0.5">💎</span> 500
+                        </button>
+                    </div>
+                    
+                    <div class="bg-black/40 rounded-xl p-2 flex flex-col items-center border border-white/10 opacity-80">
+                        <div class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center mb-2 relative">
+                            <span class="text-2xl">🤖</span>
+                            <div class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center">
+                                <span class="text-white text-xl">🔒</span>
+                            </div>
+                        </div>
+                        <div class="text-white text-xs font-bold">机器人厨师</div>
+                        <div class="bg-hot-pink/20 text-hot-pink text-xs px-2 py-0.5 rounded-full mt-1">
+                            排名前10
+                        </div>
+                    </div>
+                    
+                    <div class="bg-black/40 rounded-xl p-2 flex flex-col items-center border border-white/10 opacity-80">
+                        <div class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center mb-2 relative">
+                            <span class="text-2xl">👑</span>
+                            <div class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center">
+                                <span class="text-white text-xl">🔒</span>
+                            </div>
+                        </div>
+                        <div class="text-white text-xs font-bold">皇家厨师</div>
+                        <div class="bg-hot-pink/20 text-hot-pink text-xs px-2 py-0.5 rounded-full mt-1">
+                            完成所有成就
+                        </div>
+                    </div>
+                    
+                    <div class="bg-black/40 rounded-xl p-2 flex flex-col items-center border border-white/10 opacity-80">
+                        <div class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center mb-2 relative">
+                            <span class="text-2xl">🔥</span>
+                            <div class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center">
+                                <span class="text-white text-xl">🔒</span>
+                            </div>
+                        </div>
+                        <div class="text-white text-xs font-bold">火焰厨神</div>
+                        <div class="bg-cyber-yellow/20 text-cyber-yellow text-xs px-2 py-0.5 rounded-full mt-1 flex items-center">
+                            <span class="mr-0.5">💎</span> 800
+                        </div>
+                    </div>
+                    
+                    <div class="bg-black/40 rounded-xl p-2 flex flex-col items-center border border-white/10 opacity-80">
+                        <div class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center mb-2 relative">
+                            <span class="text-2xl">❓</span>
+                            <div class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center">
+                                <span class="text-white text-xl">🔒</span>
+                            </div>
+                        </div>
+                        <div class="text-white text-xs font-bold">神秘厨师</div>
+                        <div class="bg-hot-pink/20 text-hot-pink text-xs px-2 py-0.5 rounded-full mt-1">
+                            特殊任务
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 底部导航栏 -->
+            <div class="bg-black/80 border-t border-white/10 p-3 flex justify-around items-center relative z-10">
+                <button class="flex flex-col items-center">
+                    <span class="text-gray-400 text-lg">🏠</span>
+                    <span class="text-gray-400 text-xs">首页</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <span class="text-neon-green text-lg">👨‍🍳</span>
+                    <span class="text-neon-green text-xs">角色</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <span class="text-gray-400 text-lg">🏆</span>
+                    <span class="text-gray-400 text-xs">成就</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <span class="text-gray-400 text-lg">⚙️</span>
+                    <span class="text-gray-400 text-xs">设置</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 排行榜页面 -->
+<div class="mockup-frame bg-black rounded-xl border-4 border-cyber-blue shadow-lg shadow-cyber-blue/30">
+    <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black flex flex-col relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-cyber-blue rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-40 h-40 bg-hot-pink rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <!-- 顶部导航栏 -->
+        <div class="flex items-center justify-between p-4 relative z-10">
+            <div class="flex items-center">
+                <button class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center">
+                    <span class="text-white">←</span>
+                </button>
+                <h2 class="text-white font-punk text-xl ml-4">排行榜</h2>
+            </div>
+            <div class="flex items-center">
+                <div class="bg-black/50 px-3 py-1 rounded-full border border-cyber-blue/30 flex items-center">
+                    <span class="text-cyber-blue text-sm mr-1">🏆</span>
+                    <span class="text-white font-bold">第8名</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 排行榜选项卡 -->
+        <div class="flex justify-around px-4 py-3 relative z-10">
+            <button class="px-4 py-1 rounded-full bg-cyber-blue text-black font-bold text-sm">全球排名</button>
+            <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">好友排名</button>
+            <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">每周榜</button>
+        </div>
+        
+        <!-- 前三名展示 -->
+        <div class="flex justify-center items-end px-4 py-3 relative z-10">
+            <!-- 第二名 -->
+            <div class="flex flex-col items-center mx-2">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-b from-gray-300 to-gray-400 flex items-center justify-center border-2 border-gray-300">
+                    <span class="text-2xl">👩‍🍳</span>
+                </div>
+                <div class="bg-gray-300 text-black font-bold rounded-full w-5 h-5 flex items-center justify-center text-xs mt-1">2</div>
+                <div class="text-white text-xs mt-1 truncate w-16 text-center">厨神小李</div>
+                <div class="text-gray-300 text-xs">98,520</div>
+            </div>
+            
+            <!-- 第一名 -->
+            <div class="flex flex-col items-center mx-2 -mt-4">
+                <div class="w-8 h-8 mb-1">
+                    <svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
+                        <path d="M12 2L15 8L21 9L16.5 14L18 20L12 17L6 20L7.5 14L3 9L9 8L12 2Z" fill="#FFD700" stroke="#FFD700"/>
+                    </svg>
+                </div>
+                <div class="w-20 h-20 rounded-full bg-gradient-to-b from-yellow-300 to-yellow-500 flex items-center justify-center border-4 border-yellow-300 shadow-lg shadow-yellow-500/50">
+                    <span class="text-3xl">🧙‍♂️</span>
+                </div>
+                <div class="bg-yellow-400 text-black font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs mt-1">1</div>
+                <div class="text-white text-xs mt-1 font-bold truncate w-20 text-center">锅铲大师</div>
+                <div class="text-yellow-400 text-xs">125,840</div>
+            </div>
+            
+            <!-- 第三名 -->
+            <div class="flex flex-col items-center mx-2">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-b from-amber-600 to-amber-700 flex items-center justify-center border-2 border-amber-600">
+                    <span class="text-2xl">🧑‍🍳</span>
+                </div>
+                <div class="bg-amber-600 text-black font-bold rounded-full w-5 h-5 flex items-center justify-center text-xs mt-1">3</div>
+                <div class="text-white text-xs mt-1 truncate w-16 text-center">厨艺小天才</div>
+                <div class="text-gray-300 text-xs">87,340</div>
+            </div>
+        </div>
+        
+        <!-- 排行榜列表 -->
+        <div class="flex-1 overflow-y-auto px-4 relative z-10">
+            <!-- 当前用户 -->
+            <div class="bg-cyber-blue/20 rounded-xl p-3 flex items-center mb-3 border border-cyber-blue/30">
+                <div class="bg-cyber-blue text-black font-bold rounded-full w-7 h-7 flex items-center justify-center text-sm">8</div>
+                <div class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center mx-3">
+                    <span class="text-xl">👨‍🍳</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white font-bold">厨神小王</div>
+                        <div class="text-cyber-blue font-bold">65,430</div>
+                    </div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-gray-400">Lv.9</div>
+                        <div class="text-xs text-cyber-blue flex items-center">
+                            <span class="mr-1">↑</span>2
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 其他排名 -->
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-2 border border-white/10">
+                <div class="bg-gray-700 text-white font-bold rounded-full w-7 h-7 flex items-center justify-center text-sm">4</div>
+                <div class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center mx-3">
+                    <span class="text-xl">🧑‍🍳</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white">厨艺高手</div>
+                        <div class="text-gray-300">82,150</div>
+                    </div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-gray-400">Lv.12</div>
+                        <div class="text-xs text-red-400 flex items-center">
+                            <span class="mr-1">↓</span>1
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-2 border border-white/10">
+                <div class="bg-gray-700 text-white font-bold rounded-full w-7 h-7 flex items-center justify-center text-sm">5</div>
+                <div class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center mx-3">
+                    <span class="text-xl">👩‍🍳</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white">锅铲女王</div>
+                        <div class="text-gray-300">78,920</div>
+                    </div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-gray-400">Lv.11</div>
+                        <div class="text-xs text-green-400 flex items-center">
+                            <span class="mr-1">↑</span>3
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-2 border border-white/10">
+                <div class="bg-gray-700 text-white font-bold rounded-full w-7 h-7 flex items-center justify-center text-sm">6</div>
+                <div class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center mx-3">
+                    <span class="text-xl">🤖</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white">机器厨神</div>
+                        <div class="text-gray-300">72,340</div>
+                    </div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-gray-400">Lv.10</div>
+                        <div class="text-xs text-gray-400">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-2 border border-white/10">
+                <div class="bg-gray-700 text-white font-bold rounded-full w-7 h-7 flex items-center justify-center text-sm">7</div>
+                <div class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center mx-3">
+                    <span class="text-xl">👨‍🍳</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white">料理大神</div>
+                        <div class="text-gray-300">68,750</div>
+                    </div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-gray-400">Lv.9</div>
+                        <div class="text-xs text-red-400 flex items-center">
+                            <span class="mr-1">↓</span>2
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-2 border border-white/10">
+                <div class="bg-gray-700 text-white font-bold rounded-full w-7 h-7 flex items-center justify-center text-sm">9</div>
+                <div class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center mx-3">
+                    <span class="text-xl">👩‍🍳</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white">厨房新秀</div>
+                        <div class="text-gray-300">61,280</div>
+                    </div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-gray-400">Lv.8</div>
+                        <div class="text-xs text-green-400 flex items-center">
+                            <span class="mr-1">↑</span>5
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-2 border border-white/10">
+                <div class="bg-gray-700 text-white font-bold rounded-full w-7 h-7 flex items-center justify-center text-sm">10</div>
+                <div class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center mx-3">
+                    <span class="text-xl">🧑‍🍳</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white">炒锅达人</div>
+                        <div class="text-gray-300">58,940</div>
+                    </div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-gray-400">Lv.8</div>
+                        <div class="text-xs text-red-400 flex items-center">
+                            <span class="mr-1">↓</span>1
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航栏 -->
+        <div class="bg-black/80 border-t border-white/10 p-3 flex justify-around items-center relative z-10">
+            <button class="flex flex-col items-center">
+                <span class="text-gray-400 text-lg">🏠</span>
+                <span class="text-gray-400 text-xs">首页</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <span class="text-gray-400 text-lg">👨‍🍳</span>
+                <span class="text-gray-400 text-xs">角色</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <span class="text-cyber-blue text-lg">🏆</span>
+                <span class="text-cyber-blue text-xs">成就</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <span class="text-gray-400 text-lg">⚙️</span>
+                <span class="text-gray-400 text-xs">设置</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 成就页面 -->
+<div class="mockup-frame bg-black rounded-xl border-4 border-cyber-blue shadow-lg shadow-cyber-blue/30 mt-8">
+    <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black flex flex-col relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-cyber-blue rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-40 h-40 bg-hot-pink rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <!-- 顶部导航栏 -->
+        <div class="flex items-center justify-between p-4 relative z-10">
+            <div class="flex items-center">
+                <h2 class="text-white font-punk text-xl">成就中心</h2>
+            </div>
+            <div class="flex items-center">
+                <div class="bg-black/50 px-3 py-1 rounded-full border border-cyber-blue/30 flex items-center">
+                    <span class="text-cyber-blue text-sm mr-1">🏅</span>
+                    <span class="text-white font-bold">42/100</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 成就统计 -->
+        <div class="px-4 py-3 relative z-10">
+            <div class="bg-black/40 rounded-xl p-4 border border-white/10">
+                <h3 class="text-white font-bold mb-2">成就进度</h3>
+                <div class="w-full h-3 bg-gray-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-cyber-blue to-hot-pink rounded-full" style="width: 42%;"></div>
+                </div>
+                <div class="flex justify-between mt-2">
+                    <span class="text-xs text-gray-400">已解锁: 42个</span>
+                    <span class="text-xs text-gray-400">总计: 100个</span>
+                </div>
+                
+                <div class="flex justify-between mt-4">
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-black/50 border border-cyber-blue/50 flex items-center justify-center">
+                            <span class="text-cyber-blue">🍳</span>
+                        </div>
+                        <span class="text-xs text-gray-300 mt-1">烹饪</span>
+                        <span class="text-xs text-cyber-blue">15/30</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-black/50 border border-cyber-blue/50 flex items-center justify-center">
+                            <span class="text-cyber-blue">🏆</span>
+                        </div>
+                        <span class="text-xs text-gray-300 mt-1">竞技</span>
+                        <span class="text-xs text-cyber-blue">10/25</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-black/50 border border-cyber-blue/50 flex items-center justify-center">
+                            <span class="text-cyber-blue">🔍</span>
+                        </div>
+                        <span class="text-xs text-gray-300 mt-1">探索</span>
+                        <span class="text-xs text-cyber-blue">8/20</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-black/50 border border-cyber-blue/50 flex items-center justify-center">
+                            <span class="text-cyber-blue">🧩</span>
+                        </div>
+                        <span class="text-xs text-gray-300 mt-1">收集</span>
+                        <span class="text-xs text-cyber-blue">9/25</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 成就选项卡 -->
+        <div class="flex justify-around px-4 py-3 relative z-10">
+            <button class="px-4 py-1 rounded-full bg-cyber-blue text-black font-bold text-sm">全部</button>
+            <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">已解锁</button>
+            <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">未解锁</button>
+        </div>
+        
+        <!-- 成就列表 -->
+        <div class="flex-1 overflow-y-auto px-4 relative z-10">
+            <!-- 已解锁成就 -->
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-3 border border-cyber-blue/30">
+                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyber-blue to-hot-pink flex items-center justify-center">
+                    <span class="text-xl">🔥</span>
+                </div>
+                <div class="flex-1 ml-3">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white font-bold">火力全开</div>
+                        <div class="bg-cyber-blue/20 px-2 py-0.5 rounded text-cyber-blue text-xs">稀有</div>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-1">连续烹饪10道完美料理</div>
+                    <div class="text-xs text-cyber-blue mt-1">奖励: 500金币 + 厨师帽装饰</div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-3 border border-white/10">
+                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-yellow-500 to-amber-600 flex items-center justify-center">
+                    <span class="text-xl">🏆</span>
+                </div>
+                <div class="flex-1 ml-3">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white font-bold">厨艺新星</div>
+                        <div class="bg-amber-600/20 px-2 py-0.5 rounded text-amber-400 text-xs">普通</div>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-1">首次在排行榜上进入前100名</div>
+                    <div class="text-xs text-amber-400 mt-1">奖励: 200金币</div>
+                </div>
+            </div>
+            
+            <!-- 未解锁成就 -->
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-3 border border-white/10 opacity-70">
+                <div class="w-12 h-12 rounded-lg bg-gray-800 flex items-center justify-center">
+                    <span class="text-xl">❓</span>
+                </div>
+                <div class="flex-1 ml-3">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white font-bold">锅铲大师</div>
+                        <div class="bg-purple-600/20 px-2 py-0.5 rounded text-purple-400 text-xs">史诗</div>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-1">解锁所有烹饪技能</div>
+                    <div class="text-xs text-gray-500 mt-1">进度: 18/30</div>
+                    <div class="w-full h-1.5 bg-gray-800 rounded-full overflow-hidden mt-1">
+                        <div class="h-full bg-purple-500 rounded-full" style="width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-3 border border-white/10">
+                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                    <span class="text-xl">🍜</span>
+                </div>
+                <div class="flex-1 ml-3">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white font-bold">美食家</div>
+                        <div class="bg-green-600/20 px-2 py-0.5 rounded text-green-400 text-xs">普通</div>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-1">制作50种不同的料理</div>
+                    <div class="text-xs text-green-400 mt-1">奖励: 300金币 + 食谱解锁</div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-3 border border-white/10 opacity-70">
+                <div class="w-12 h-12 rounded-lg bg-gray-800 flex items-center justify-center">
+                    <span class="text-xl">❓</span>
+                </div>
+                <div class="flex-1 ml-3">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white font-bold">厨神降临</div>
+                        <div class="bg-orange-600/20 px-2 py-0.5 rounded text-orange-400 text-xs">传奇</div>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-1">在全球排行榜中获得第一名</div>
+                    <div class="text-xs text-gray-500 mt-1">未解锁</div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-3 border border-white/10">
+                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center">
+                    <span class="text-xl">💧</span>
+                </div>
+                <div class="flex-1 ml-3">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white font-bold">水流若剑</div>
+                        <div class="bg-blue-600/20 px-2 py-0.5 rounded text-blue-400 text-xs">稀有</div>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-1">使用水系技能击败10名对手</div>
+                    <div class="text-xs text-blue-400 mt-1">奖励: 400金币 + 水系厨具</div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-3 flex items-center mb-3 border border-white/10 opacity-70">
+                <div class="w-12 h-12 rounded-lg bg-gray-800 flex items-center justify-center">
+                    <span class="text-xl">❓</span>
+                </div>
+                <div class="flex-1 ml-3">
+                    <div class="flex justify-between items-center">
+                        <div class="text-white font-bold">收集狂热</div>
+                        <div class="bg-amber-600/20 px-2 py-0.5 rounded text-amber-400 text-xs">普通</div>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-1">收集50种厨具</div>
+                    <div class="text-xs text-gray-500 mt-1">进度: 32/50</div>
+                    <div class="w-full h-1.5 bg-gray-800 rounded-full overflow-hidden mt-1">
+                        <div class="h-full bg-amber-500 rounded-full" style="width: 64%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航栏 -->
+        <div class="bg-black/80 border-t border-white/10 p-3 flex justify-around items-center relative z-10">
+            <button class="flex flex-col items-center">
+                <span class="text-gray-400 text-lg">🏠</span>
+                <span class="text-gray-400 text-xs">首页</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <span class="text-gray-400 text-lg">👨‍🍳</span>
+                <span class="text-gray-400 text-xs">角色</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <span class="text-cyber-blue text-lg">🏆</span>
+                <span class="text-cyber-blue text-xs">成就</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <span class="text-gray-400 text-lg">⚙️</span>
+                <span class="text-gray-400 text-xs">设置</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- 排行榜页面 -->
+<div class="mockup-frame bg-black rounded-xl border-4 border-cyber-blue shadow-lg shadow-cyber-blue/30 mt-8">
+    <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black flex flex-col relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-cyber-blue rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-40 h-40 bg-hot-pink rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <!-- 顶部导航栏 -->
+        <div class="flex items-center justify-between p-4 relative z-10">
+            <div class="flex items-center">
+                <h2 class="text-white font-punk text-xl">排行榜</h2>
+            </div>
+            <div class="flex items-center">
+                <div class="bg-black/50 px-3 py-1 rounded-full border border-cyber-blue/30 flex items-center">
+                    <span class="text-cyber-blue text-sm mr-1">🏆</span>
+                    <span class="text-white font-bold">你的排名: #42</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 排行榜选项卡 -->
+        <div class="flex justify-around px-4 py-3 relative z-10">
+            <button class="px-4 py-1 rounded-full bg-cyber-blue text-black font-bold text-sm">全球排名</button>
+            <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">好友排名</button>
+            <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">每周榜</button>
+        </div>
+        
+        <!-- 前三名展示 -->
+        <div class="flex justify-center px-4 py-3 relative z-10">
+            <!-- 第二名 -->
+            <div class="flex flex-col items-center mx-2">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-b from-gray-300 to-gray-400 border-4 border-gray-300 flex items-center justify-center overflow-hidden">
+                    <img src="https://placehold.co/60x60" alt="Second Place" class="w-full h-full object-cover" />
+                </div>
+                <div class="bg-gray-300 text-black font-bold rounded-full w-6 h-6 flex items-center justify-center -mt-3 border-2 border-black">2</div>
+                <div class="text-white text-xs mt-1 font-bold">厨神小王</div>
+                <div class="text-gray-400 text-xs">89,750分</div>
+            </div>
+            
+            <!-- 第一名 -->
+            <div class="flex flex-col items-center mx-2 -mt-4">
+                <div class="w-20 h-20 rounded-full bg-gradient-to-b from-yellow-300 to-yellow-500 border-4 border-yellow-400 flex items-center justify-center overflow-hidden">
+                    <img src="https://placehold.co/80x80" alt="First Place" class="w-full h-full object-cover" />
+                </div>
+                <div class="bg-yellow-400 text-black font-bold rounded-full w-7 h-7 flex items-center justify-center -mt-3 border-2 border-black">1</div>
+                <div class="text-white text-sm mt-1 font-bold">锅王霸主</div>
+                <div class="text-yellow-400 text-xs">95,230分</div>
+                <div class="bg-yellow-400/20 px-2 py-0.5 rounded text-yellow-400 text-xs mt-1">🏆 连续3周霸榜</div>
+            </div>
+            
+            <!-- 第三名 -->
+            <div class="flex flex-col items-center mx-2">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-b from-amber-600 to-amber-800 border-4 border-amber-700 flex items-center justify-center overflow-hidden">
+                    <img src="https://placehold.co/60x60" alt="Third Place" class="w-full h-full object-cover" />
+                </div>
+                <div class="bg-amber-700 text-white font-bold rounded-full w-6 h-6 flex items-center justify-center -mt-3 border-2 border-black">3</div>
+                <div class="text-white text-xs mt-1 font-bold">料理达人</div>
+                <div class="text-gray-400 text-xs">82,430分</div>
+            </div>
+        </div>
+        
+        <!-- 排行榜列表 -->
+        <div class="flex-1 overflow-y-auto px-4 relative z-10">
+            <!-- 排名列表标题 -->
+            <div class="flex items-center text-xs text-gray-500 px-2 py-1">
+                <div class="w-8 text-center">排名</div>
+                <div class="w-10"></div>
+                <div class="flex-1">玩家</div>
+                <div class="w-20 text-right">分数</div>
+                <div class="w-12 text-center">变化</div>
+            </div>
+            
+            <!-- 排名项目 -->
+            <div class="bg-black/40 rounded-xl p-2 flex items-center mb-2 border border-white/10">
+                <div class="w-8 text-center text-gray-400 font-bold">4</div>
+                <div class="w-10">
+                    <div class="w-8 h-8 rounded-full bg-gray-800 overflow-hidden">
+                        <img src="https://placehold.co/32x32" alt="Player" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="text-white text-sm font-bold">炒锅英雄</div>
+                    <div class="text-gray-500 text-xs">Lv.28</div>
+                </div>
+                <div class="w-20 text-right">
+                    <div class="text-white text-sm font-bold">78,650</div>
+                </div>
+                <div class="w-12 text-center">
+                    <div class="text-green-400 text-xs">↑2</div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-2 flex items-center mb-2 border border-white/10">
+                <div class="w-8 text-center text-gray-400 font-bold">5</div>
+                <div class="w-10">
+                    <div class="w-8 h-8 rounded-full bg-gray-800 overflow-hidden">
+                        <img src="https://placehold.co/32x32" alt="Player" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="text-white text-sm font-bold">厨房魔术师</div>
+                    <div class="text-gray-500 text-xs">Lv.27</div>
+                </div>
+                <div class="w-20 text-right">
+                    <div class="text-white text-sm font-bold">76,320</div>
+                </div>
+                <div class="w-12 text-center">
+                    <div class="text-red-400 text-xs">↓1</div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-2 flex items-center mb-2 border border-white/10">
+                <div class="w-8 text-center text-gray-400 font-bold">6</div>
+                <div class="w-10">
+                    <div class="w-8 h-8 rounded-full bg-gray-800 overflow-hidden">
+                        <img src="https://placehold.co/32x32" alt="Player" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="text-white text-sm font-bold">火锅达人</div>
+                    <div class="text-gray-500 text-xs">Lv.26</div>
+                </div>
+                <div class="w-20 text-right">
+                    <div class="text-white text-sm font-bold">75,890</div>
+                </div>
+                <div class="w-12 text-center">
+                    <div class="text-gray-400 text-xs">-</div>
+                </div>
+            </div>
+            
+            <!-- 更多排名项目 -->
+            <div class="bg-black/40 rounded-xl p-2 flex items-center mb-2 border border-white/10">
+                <div class="w-8 text-center text-gray-400 font-bold">7</div>
+                <div class="w-10">
+                    <div class="w-8 h-8 rounded-full bg-gray-800 overflow-hidden">
+                        <img src="https://placehold.co/32x32" alt="Player" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="text-white text-sm font-bold">煎饼王子</div>
+                    <div class="text-gray-500 text-xs">Lv.25</div>
+                </div>
+                <div class="w-20 text-right">
+                    <div class="text-white text-sm font-bold">72,450</div>
+                </div>
+                <div class="w-12 text-center">
+                    <div class="text-green-400 text-xs">↑3</div>
+                </div>
+            </div>
+            
+            <!-- 当前用户排名 -->
+            <div class="bg-cyber-blue/20 rounded-xl p-2 flex items-center mb-2 border border-cyber-blue">
+                <div class="w-8 text-center text-cyber-blue font-bold">42</div>
+                <div class="w-10">
+                    <div class="w-8 h-8 rounded-full bg-cyber-blue/30 border border-cyber-blue overflow-hidden">
+                        <img src="https://placehold.co/32x32" alt="You" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="text-white text-sm font-bold">你</div>
+                    <div class="text-cyber-blue text-xs">Lv.19</div>
+                </div>
+                <div class="w-20 text-right">
+                    <div class="text-white text-sm font-bold">45,720</div>
+                </div>
+                <div class="w-12 text-center">
+                    <div class="text-green-400 text-xs">↑5</div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-2 flex items-center mb-2 border border-white/10">
+                <div class="w-8 text-center text-gray-400 font-bold">43</div>
+                <div class="w-10">
+                    <div class="w-8 h-8 rounded-full bg-gray-800 overflow-hidden">
+                        <img src="https://placehold.co/32x32" alt="Player" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="text-white text-sm font-bold">锅铲新手</div>
+                    <div class="text-gray-500 text-xs">Lv.18</div>
+                </div>
+                <div class="w-20 text-right">
+                    <div class="text-white text-sm font-bold">45,210</div>
+                </div>
+                <div class="w-12 text-center">
+                    <div class="text-red-400 text-xs">↓2</div>
+                </div>
+            </div>
+            
+            <!-- 更多排名 -->
+            <div class="bg-black/40 rounded-xl p-2 flex items-center mb-2 border border-white/10">
+                <div class="w-8 text-center text-gray-400 font-bold">44</div>
+                <div class="w-10">
+                    <div class="w-8 h-8 rounded-full bg-gray-800 overflow-hidden">
+                        <img src="https://placehold.co/32x32" alt="Player" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="text-white text-sm font-bold">美食家</div>
+                    <div class="text-gray-500 text-xs">Lv.18</div>
+                </div>
+                <div class="w-20 text-right">
+                    <div class="text-white text-sm font-bold">44,980</div>
+                </div>
+                <div class="w-12 text-center">
+                    <div class="text-gray-400 text-xs">-</div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 rounded-xl p-2 flex items-center mb-2 border border-white/10">
+                <div class="w-8 text-center text-gray-400 font-bold">45</div>
+                <div class="w-10">
+                    <div class="w-8 h-8 rounded-full bg-gray-800 overflow-hidden">
+                        <img src="https://placehold.co/32x32" alt="Player" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="text-white text-sm font-bold">厨房新秀</div>
+                    <div class="text-gray-500 text-xs">Lv.17</div>
+                </div>
+                <div class="w-20 text-right">
+                    <div class="text-white text-sm font-bold">43,750</div>
+                </div>
+                <div class="w-12 text-center">
+                    <div class="text-green-400 text-xs">↑1</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航栏 -->
+        <div class="p-4 flex justify-between items-center relative z-10 border-t border-gray-800">
+            <button class="w-12 h-12 rounded-full bg-black/50 flex items-center justify-center border border-cyber-blue/30">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            
+            <div class="flex space-x-2">
+                <button class="px-4 py-2 bg-cyber-blue text-black font-bold rounded-full text-sm flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                    分享
+                </button>
+                <button class="px-4 py-2 bg-hot-pink text-white font-bold rounded-full text-sm flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    挑战
+                </button>
+            </div>
+        </div>
+        
+        <!-- 霓虹灯效果边框 -->
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+        <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-hot-pink to-transparent"></div>
+        <div class="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-cyber-blue to-transparent"></div>
+        <div class="absolute inset-y-0 right-0 w-px bg-gradient-to-b from-transparent via-hot-pink to-transparent"></div>
+    </div>
+</div>
+
+<!-- 角色装扮页面 -->
+<div class="mockup-frame bg-black rounded-xl border-4 border-cyber-blue shadow-lg shadow-cyber-blue/30 mt-8">
+    <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black flex flex-col relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-0 w-40 h-40 bg-purple-600 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-40 h-40 bg-hot-pink rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <!-- 顶部导航栏 -->
+        <div class="flex items-center justify-between p-4 relative z-10">
+            <button class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center border border-cyber-blue/30">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <h2 class="text-white font-punk text-xl">角色装扮</h2>
+            <div class="flex items-center">
+                <div class="bg-black/50 px-3 py-1 rounded-full border border-cyber-blue/30 flex items-center">
+                    <span class="text-cyber-blue text-sm mr-1">💎</span>
+                    <span class="text-white font-bold">1,250</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 角色预览区 -->
+        <div class="flex justify-center items-center py-4 relative z-10">
+            <div class="w-40 h-40 bg-gradient-to-b from-black/50 to-cyber-blue/20 rounded-full flex items-center justify-center border border-cyber-blue/30">
+                <div class="w-32 h-32 relative">
+                    <!-- 角色形象 -->
+                    <img src="https://placehold.co/128x128" alt="Character" class="w-full h-full object-cover" />
+                    
+                    <!-- 装备的物品效果 -->
+                    <div class="absolute top-0 left-0 w-full h-full">
+                        <!-- 厨师帽 -->
+                        <img src="https://placehold.co/64x32" alt="Chef Hat" class="absolute -top-5 left-1/2 transform -translate-x-1/2 w-16 h-8" />
+                        
+                        <!-- 围裙 -->
+                        <div class="absolute bottom-0 left-0 w-full h-1/2 overflow-hidden">
+                            <img src="https://placehold.co/64x64" alt="Apron" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 装扮类别选项卡 -->
+        <div class="flex justify-around px-4 py-3 relative z-10">
+            <button class="px-4 py-1 rounded-full bg-cyber-blue text-black font-bold text-sm">头部</button>
+            <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">服装</button>
+            <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">装饰</button>
+            <button class="px-4 py-1 rounded-full bg-black/50 text-gray-300 text-sm">特效</button>
+        </div>
+        
+        <!-- 装扮物品列表 -->
+        <div class="flex-1 overflow-y-auto px-4 relative z-10">
+            <div class="grid grid-cols-3 gap-3">
+                <!-- 已装备物品 -->
+                <div class="bg-cyber-blue/20 rounded-lg p-2 flex flex-col items-center border border-cyber-blue">
+                    <div class="w-16 h-16 bg-black/50 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="https://placehold.co/64x64" alt="Chef Hat" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="text-white text-xs font-bold mt-1">厨师帽</div>
+                    <div class="text-cyber-blue text-xs">已装备</div>
+                </div>
+                
+                <!-- 已拥有物品 -->
+                <div class="bg-black/40 rounded-lg p-2 flex flex-col items-center border border-white/10">
+                    <div class="w-16 h-16 bg-black/50 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="https://placehold.co/64x64" alt="Beanie" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="text-white text-xs font-bold mt-1">毛线帽</div>
+                    <div class="text-gray-400 text-xs">已拥有</div>
+                </div>
+                
+                <!-- 已拥有物品 -->
+                <div class="bg-black/40 rounded-lg p-2 flex flex-col items-center border border-white/10">
+                    <div class="w-16 h-16 bg-black/50 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="https://placehold.co/64x64" alt="Cap" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="text-white text-xs font-bold mt-1">棒球帽</div>
+                    <div class="text-gray-400 text-xs">已拥有</div>
+                </div>
+                
+                <!-- 未拥有物品 -->
+                <div class="bg-black/40 rounded-lg p-2 flex flex-col items-center border border-white/10 relative">
+                    <div class="w-16 h-16 bg-black/50 rounded-lg flex items-center justify-center overflow-hidden opacity-70">
+                        <img src="https://placehold.co/64x64" alt="Crown" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="text-white text-xs font-bold mt-1">皇冠</div>
+                    <div class="text-hot-pink text-xs flex items-center">
+                        <span class="mr-1">💎</span>350
+                    </div>
+                    <button class="absolute inset-0 bg-hot-pink/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                        <span class="bg-hot-pink text-white px-2 py-1 rounded text-xs font-bold">购买</span>
+                    </button>
+                </div>
+                
+                <!-- 未拥有物品 -->
+                <div class="bg-black/40 rounded-lg p-2 flex flex-col items-center border border-white/10 relative">
+                    <div class="w-16 h-16 bg-black/50 rounded-lg flex items-center justify-center overflow-hidden opacity-70">
+                        <img src="https://placehold.co/64x64" alt="Helmet" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="text-white text-xs font-bold mt-1">安全帽</div>
+                    <div class="text-hot-pink text-xs flex items-center">
+                        <span class="mr-1">💎</span>200
+                    </div>
+                    <button class="absolute inset-0 bg-hot-pink/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                        <span class="bg-hot-pink text-white px-2 py-1 rounded text-xs font-bold">购买</span>
+                    </button>
+                </div>
+                
+                <!-- 限时物品 -->
+                <div class="bg-black/40 rounded-lg p-2 flex flex-col items-center border border-yellow-500/50 relative">
+                    <div class="absolute -top-1 -right-1 bg-yellow-500 text-black text-xs font-bold px-2 py-0.5 rounded">限时</div>
+                    <div class="w-16 h-16 bg-black/50 rounded-lg flex items-center justify-center overflow-hidden opacity-70">
+                        <img src="https://placehold.co/64x64" alt="Special Hat" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="text-white text-xs font-bold mt-1">火焰头盔</div>
+                    <div class="text-yellow-500 text-xs flex items-center">
+                        <span class="mr-1">💎</span>500
+                    </div>
+                    <button class="absolute inset-0 bg-yellow-500/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                        <span class="bg-yellow-500 text-black px-2 py-1 rounded text-xs font-bold">购买</span>
+                    </button>
+                </div>
+                
+                <!-- 锁定物品 -->
+                <div class="bg-black/40 rounded-lg p-2 flex flex-col items-center border border-white/10 relative">
+                    <div class="w-16 h-16 bg-black/50 rounded-lg flex items-center justify-center overflow-hidden opacity-50">
+                        <img src="https://placehold.co/64x64" alt="Locked Hat" class="w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-black/60 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 text-xs font-bold mt-1">神秘头饰</div>
+                    <div class="text-gray-500 text-xs">等级30解锁</div>
+                </div>
+                
+                <!-- 更多物品 -->
+                <div class="bg-black/40 rounded-lg p-2 flex flex-col items-center border border-white/10 relative">
+                    <div class="w-16 h-16 bg-black/50 rounded-lg flex items-center justify-center overflow-hidden opacity-70">
+                        <img src="https://placehold.co/64x64" alt="Party Hat" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="text-white text-xs font-bold mt-1">派对帽</div>
+                    <div class="text-hot-pink text-xs flex items-center">
+                        <span class="mr-1">💎</span>150
+                    </div>
+                    <button class="absolute inset-0 bg-hot-pink/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                        <span class="bg-hot-pink text-white px-2 py-1 rounded text-xs font-bold">购买</span>
+                    </button>
+                </div>
+                
+                <!-- 锁定物品 -->
+                <div class="bg-black/40 rounded-lg p-2 flex flex-col items-center border border-white/10 relative">
+                    <div class="w-16 h-16 bg-black/50 rounded-lg flex items-center justify-center overflow-hidden opacity-50">
+                        <img src="https://placehold.co/64x64" alt="Locked Hat" class="w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-black/60 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 text-xs font-bold mt-1">高级厨帽</div>
+                    <div class="text-gray-500 text-xs">完成挑战解锁</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部操作栏 -->
+        <div class="p-4 flex justify-between items-center relative z-10 border-t border-gray-800">
+            <button class="px-4 py-2 bg-black/50 text-gray-300 font-bold rounded-full text-sm border border-gray-700">
+                预览效果
+            </button>
+            
+            <button class="px-6 py-2 bg-cyber-blue text-black font-bold rounded-full text-sm flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                确认装扮
+            </button>
+        </div>
+        
+        <!-- 霓虹灯效果边框 -->
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+        <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-hot-pink to-transparent"></div>
+        <div class="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-cyber-blue to-transparent"></div>
+        <div class="absolute inset-y-0 right-0 w-px bg-gradient-to-b from-transparent via-hot-pink to-transparent"></div>
+    </div>
+    
